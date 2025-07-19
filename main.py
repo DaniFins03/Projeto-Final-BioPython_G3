@@ -10,3 +10,4 @@ for organismo in organismos_do_fasta:
     print("O tamanho é:", organismo.sequencia.calcular_tamanho())
     print("A sequência complementar é (8 primeiras bases):",organismo.sequencia.complementar() [:8])
     print("A sequência complementar reversa é (8 primeiras bases):",organismo.sequencia.complementar_reversa()[:8])
+    print("O resultado da transcrição é: ",organismo.sequencia.transcrever()[:8])
