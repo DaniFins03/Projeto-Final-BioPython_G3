@@ -4,7 +4,7 @@ from bio.constantes import DNA_PARA_AMINOACIDO,DNA_STOP_CODONS
 class Sequencia:
 
     def __init__(self, sequencia):
-        self.sequencia = sequencia
+        self.sequencia = sequencia.upper()
 
     def __repr__(self):
         return f'Sequencia("{self.sequencia}")'
@@ -23,7 +23,7 @@ class Sequencia:
 
     def __getitem__(self, index):
         return self.sequencia.__getitem__(index)
-    
+
     def complementar(self):
         complementos = {'A':'T', 'T':'A', 'C':'G', 'G':'C'}
         complementar = ""
@@ -38,32 +38,33 @@ class Sequencia:
         complementar= self.complementar()
         complementar_rev = complementar[::-1]
         return Sequencia(complementar_rev)
-    
+
     def transcrever(self):
-        transcrito = ""
+        transcrita = ""
         for base in self.sequencia:
             if base == "T":
-                transcrito += "U"
+                transcrita += "U"
             else:
-                transcrito += base
-        return Sequencia(transcrito)
-    
-    def traduzir(self,parar=False):
-        proteina=""
-        for i in range (0,len(self.sequencia),3):
-            codon=self.sequencia[i:i+3]
-            if len(codon) < 3:
-                break
-            if parar and (codon in DNA_STOP_CODONS):
-                break
-            elif codon in DNA_STOP_CODONS:
-                aminoacido = "*"
+                transcrita += base
+        return Sequencia(transcrita)
+
+    def traduzir (self, parar = False):
+        traducao = ""
+        for i in range (0, len(self.sequencia)-2, 3): 
+            codon = self.sequencia [i:i+3]
+            if codon in DNA_STOP_CODONS: 
+                if parar: 
+                    break 
+                aminoacido = '*'
             elif codon in DNA_PARA_AMINOACIDO:
-                aminoacido=DNA_PARA_AMINOACIDO[codon]
+                aminoacido = DNA_PARA_AMINOACIDO[codon]
             else:
-                aminoacido = "x"
-            proteina += aminoacido
-        return proteina 
+                aminoacido = "X"
+            traducao += aminoacido
+        return Sequencia (traducao)
+    
+    def imprimir(self):
+        print(self.sequencia)
     
     def calcular_percentual(self,bases):
         total = len(self.sequencia)
