@@ -1,3 +1,6 @@
+from bio.constantes import DNA_PARA_AMINOACIDO,DNA_STOP_CODONS
+
+
 class Sequencia:
 
     def __init__(self, sequencia):
@@ -44,3 +47,32 @@ class Sequencia:
             else:
                 transcrito += base
         return Sequencia(transcrito)
+    
+    def traduzir(self,parar=False):
+        proteina=""
+        for i in range (0,len(self.sequencia),3):
+            codon=self.sequencia[i:i+3]
+            if len(codon) < 3:
+                break
+            if parar and (codon in DNA_STOP_CODONS):
+                break
+            elif codon in DNA_STOP_CODONS:
+                aminoacido = "*"
+            elif codon in DNA_PARA_AMINOACIDO:
+                aminoacido=DNA_PARA_AMINOACIDO[codon]
+            else:
+                aminoacido = "x"
+            proteina += aminoacido
+        return proteina 
+    
+    def calcular_percentual(self,bases):
+        total = len(self.sequencia)
+        contador=0
+        for base in self.sequencia:
+            if base in bases:
+                contador += 1
+        if total == 0:
+            return 0.0
+        
+        percentual = contador / total
+        return f"{percentual:.2f}"

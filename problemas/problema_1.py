@@ -1,3 +1,4 @@
+
 def analisar_percentuais(organismo):
     percentual_A = organismo.sequencia.calcular_percentual("A")
     percentual_T = organismo.sequencia.calcular_percentual("T")
