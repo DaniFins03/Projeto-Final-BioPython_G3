@@ -1,16 +1,12 @@
-
 from bio.sequencia import Sequencia
-from bio.ler_fasta import ler_fasta 
 
-
-def executar_problema_2(caminho_do_arquivo):
-    organismos = ler_fasta (caminho_do_arquivo)
+def executar_problema_2(organismos):
 
     for organismo in organismos:
         print(f"\nOrganismo: {organismo.nome} (ID: {organismo.id})")
         
-        seq = Sequencia(organismo.sequencia)
-        proteina = seq.traduzir(parar=False)
+        seq = Sequencia(organismo.sequencia.sequencia)
+        proteina = seq.traduzir()
 
         print("Proteína traduzida:")
         proteina.imprimir()
